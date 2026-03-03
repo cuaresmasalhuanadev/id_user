@@ -1,0 +1,6 @@
+.git
+backend-java
+node_modules
+frontend/node_modules
+*.md
+.vscode

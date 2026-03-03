@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cuaresmasalhuanadev/biegsfrits-store:latest
+    ports:
+      - "8084:8084"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      MONGODB_URI: ${MONGODB_URI}
+      JWT_SECRET: ${JWT_SECRET:-biegsfritsstore-secret-2026}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-peabodycuaresmasalhuana@yahoo.com}
+      ADMIN_WHATSAPP: ${ADMIN_WHATSAPP:-+51917360503}
+      ADMIN_REFERRAL_CODE: ${ADMIN_REFERRAL_CODE:-2026@Body26feb}
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "wget", "-qO-", "http://localhost:8084/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
